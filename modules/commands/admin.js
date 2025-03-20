@@ -15,12 +15,12 @@ module.exports.config = {
 
 module.exports.languages = {
     "vi": {
-        "listAdmin": `===「 ADMIN BOT 」===\n━━━━━━━━━━━━━━━\n%1\n\n==「 NGƯỜI THUÊ BOT 」==\n━━━━━━━━━━━━━━━\n%2`,
+        "listAdmin": `===「 ᴀᴅᴍɪɴ ʙᴇɴ 」===\n━━━━━━━━━━━━━━━\n%1\n\n==「 ℕ𝕘ườ𝕚 𝕋𝕙𝕦ê 𝔹𝕖𝕟 」==\n━━━━━━━━━━━━━━━\n%2`,
         "notHavePermssion": 'MODE - Bạn không đủ quyền hạn để có thể sử dụng chức năng "%1"',
-        "addedNewAdmin": 'MODE - Đã thêm thành công %1 người dùng trở thành Admin Bot\n\n%2',
-      "addedNewNDH": 'MODE - Đã thêm thành công %1 người dùng trở thành Người Thuê Bot\n\n%2',
+        "addedNewAdmin": 'MODE - Đã thêm thành công %1 người dùng trở thành Admin  \n\n%2',
+      "addedNewNDH": 'MODE - Đã thêm thành công %1 người dùng trở thành Người Thuê  \n\n%2',
         "removedAdmin": 'MODE - Đã gỡ thành công vai trò Admin %1 người dùng trở lại làm thành viên\n\n%2',
-      "removedNDH": 'MODE - Đã gỡ thành công vai trò Người Thuê Bot %1 người dùng trở lại làm thành viên\n\n%2'
+      "removedNDH": 'MODE - Đã gỡ thành công vai trò Người Thuê   %1 người dùng trở lại làm thành viên\n\n%2'
 
     },
     "en": {
@@ -47,7 +47,7 @@ module.exports.onLoad = function() {
 }
 module.exports.run = async function ({ api, event, args, Users, permssion, getText }) {  
     const content = args.slice(1, args.length);
-    if (args.length == 0) return api.sendMessage({body:`==== [ ADMIN SETTING ] ====\n━━━━━━━━━━━━━━━\n- admin list: Xem danh sách admin\n- admin add: Thêm admin mới\n- admin del: Gỡ vai trò admin\n- admin addntb: Thêm người thuê bot mới\n- admin delntb: Gỡ vai trò người thuê bot\n- admin qtvonly: Bật/Tắt tính năng chỉ qtv box được dùng bot\n- admin ntbonly: Bật/Tắt tính năng chỉ được người thuê dùng bot\n- admin only: Bật/Tắt tính năng chỉ được admin dùng bot\n- admin ibonly: Chỉ được admin mới được ib với bot`}, event.threadID, event.messageID); 
+    if (args.length == 0) return api.sendMessage({body:`==== [ ADMIN SETTING ] ====\n━━━━━━━━━━━━━━━\n- admin list: Xem danh sách admin\n- admin add: Thêm admin mới\n- admin del: Gỡ vai trò admin\n- admin addntb: Thêm người thuê   mới\n- admin delntb: Gỡ vai trò người thuê  \n- admin qtvonly: Bật/Tắt tính năng chỉ qtv box được dùng  \n- admin ntbonly: Bật/Tắt tính năng chỉ được người thuê dùng  \n- admin only: Bật/Tắt tính năng chỉ được admin dùng  \n- admin ibonly: Chỉ được admin mới được ib với bot`}, event.threadID, event.messageID); 
     const { threadID, messageID, mentions } = event;
     const { configPath } = global.client;
     const { ADMINBOT } = global.config;
@@ -84,7 +84,7 @@ module.exports.run = async function ({ api, event, args, Users, permssion, getTe
 
        
         case "add": { 
-            if (event.senderID != global.config.NDH[0]) return api.sendMessage(`❎ Bạn không phải là Admin Bot nên không có quyền sử dụng lệnh này. `, event.threadID, event.messageID)
+            if (event.senderID != global.config.NDH[0]) return api.sendMessage(`❎ Bạn không phải là Admin   nên không có quyền sử dụng lệnh này. `, event.threadID, event.messageID)
             if (permssion != 3) return api.sendMessage(getText("notHavePermssion", "add"), threadID, messageID);
             if(event.type == "message_reply") { content[0] = event.messageReply.senderID }
             if (mention.length != 0 && isNaN(content[0])) {
@@ -109,7 +109,7 @@ module.exports.run = async function ({ api, event, args, Users, permssion, getTe
             else return global.utils.throwError(this.config.name, threadID, messageID);
         }
         case "addntb": { 
-          if (event.senderID != global.config.NDH[0]) return api.sendMessage(`❎ Bạn không phải là Admin Bot nên không có quyền sử dụng lệnh này. `, event.threadID, event.messageID)
+          if (event.senderID != global.config.NDH[0]) return api.sendMessage(`❎ Bạn không phải là Admin   nên không có quyền sử dụng lệnh này. `, event.threadID, event.messageID)
             if (permssion != 3) return api.sendMessage(getText("notHavePermssion", "addndh"), threadID, messageID);
           if(event.type == "message_reply") { content[0] = event.messageReply.senderID }
             if (mention.length != 0 && isNaN(content[0])) {
@@ -128,14 +128,14 @@ module.exports.run = async function ({ api, event, args, Users, permssion, getTe
                 config.NDH.push(content[0]);
                 const name = (await Users.getData(content[0])).name
                 writeFileSync(configPath, JSON.stringify(config, null, 4), 'utf8');
-                return api.sendMessage(getText("addedNewNDH", 1, `Người Thuê Bot - ${name}`), threadID, messageID);
+                return api.sendMessage(getText("addedNewNDH", 1, `Người Thuê   - ${name}`), threadID, messageID);
             }
             else return global.utils.throwError(this.config.name, threadID, messageID);
                   }
         case "remove":
         case "rm":
         case "del": {
-            if (event.senderID != global.config.NDH[0]) return api.sendMessage(`❎ Bạn không phải là Admin Bot nên không có quyền sử dụng lệnh này. `, event.threadID, event.messageID)
+            if (event.senderID != global.config.NDH[0]) return api.sendMessage(`❎ Bạn không phải là Admin   nên không có quyền sử dụng lệnh này. `, event.threadID, event.messageID)
             if (permssion != 3) return api.sendMessage(getText("notHavePermssion", "del"), threadID, messageID);
             if(event.type == "message_reply") { content[0] = event.messageReply.senderID }
             if (mentions.length != 0 && isNaN(content[0])) {
